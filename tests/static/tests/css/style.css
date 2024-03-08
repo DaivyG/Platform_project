@@ -1,8 +1,72 @@
-.correct-answer {
-    color: green;
-    font-weight: bold; /* Жирный шрифт для выделения */
+/* Основной контейнер страницы */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f8f8;
+    color: #333;
+    margin: 0;
+    padding: 0;
 }
 
-body {
+/* Заголовок страницы */
+h1 {
     text-align: center;
+    color: #007bff;
+}
+
+/* Контейнер для вопросов */
+.question {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 600px;
+}
+
+/* Форма вопроса */
+.question-form {
+    margin-top: 20px;
+}
+
+/* Кнопка отправки ответа */
+.question-form button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.question-form button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Стилизация чекбоксов и их меток */
+.question-form input[type="checkbox"] {
+    margin-right: 10px;
+}
+
+.question-form label {
+    display: inline-block;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+/* Правильный ответ */
+.correct-answer {
+    color: green;
+    font-weight: bold;
+}
+
+/* Анимация для правильных ответов */
+.correct-answer-animation {
+    animation: correct-answer-animation 0.5s ease-in-out;
+}
+
+@keyframes correct-answer-animation {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
 }

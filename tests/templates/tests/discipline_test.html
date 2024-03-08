@@ -5,7 +5,7 @@
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Бухгалтерский учет</title>
-    <link rel="stylesheet" href="{% static 'main/css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'tests/css/style.css' %}"/>
 </head>
 <body>
 <h1>Бухгалтерский учет</h1>
@@ -42,7 +42,7 @@
             // Перебираем все чекбоксы
             checkboxes.forEach(function (checkbox) {
                 // Если чекбокс выбран и он правильный, перекрашиваем его в зеленый цвет
-                if (checkbox.checked && checkbox.dataset.correct === "true") {
+                if (checkbox.dataset.correct === 'True') {
                     checkbox.nextElementSibling.style.color = "green"; // Выделение текста зеленым цветом
                 }
             });
