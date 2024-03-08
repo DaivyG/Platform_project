@@ -1,0 +1,24 @@
+{% extends 'main/layout.html' %} {% load static %} {% block title %} Платформа
+тестов {% endblock %} {% block link_css %}
+<link rel="stylesheet" href="{% static 'main/css/main.css' %}" />
+{% endblock %} {% block body %}
+<section class="content">
+  <div class="container">
+    <h1 class="logo">Платформа тестов</h1>
+    <h2 class="content-title">Добро пожаловать на платформу тестов</h2>
+    <p class="content-subtitle">
+      Выбирайте тесты от разных университетов и проверяйте свои знания
+    </p>
+    <form method="post" action="{% url 'start' %}">
+      {% csrf_token %}
+      <button type="submit" class="btn">Начать</button>
+    </form>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2024 Платформа тестов</p>
+  </div>
+</footer>
+{% endblock %}

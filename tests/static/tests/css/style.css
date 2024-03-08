@@ -1,0 +1,8 @@
+.correct-answer {
+    color: green;
+    font-weight: bold; /* Жирный шрифт для выделения */
+}
+
+body {
+    text-align: center;
+}

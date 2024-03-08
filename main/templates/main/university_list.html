@@ -1,0 +1,29 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}
+Список университетов
+{% endblock %}
+
+{% block link_css %}
+<link rel="stylesheet" href="{% static 'main/css/main.css' %}" />
+{% endblock %}
+
+{% block body %}
+<section class="content">
+  <div class="container">
+    <h1 class="content-title">Список университетов</h1>
+    <ul class="university-list">
+      {% for university in universities %}
+      <li><a href="{% url 'discipline_list' university_id=university.id %}">{{ university.name }}</a></li>
+      {% endfor %}
+    </ul>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2024 Платформа тестов</p>
+  </div>
+</footer>
+{% endblock %}

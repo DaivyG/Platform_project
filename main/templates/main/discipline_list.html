@@ -1,0 +1,27 @@
+{% extends 'main/layout.html' %}
+{% load static %}
+
+{% block title %}
+Список дисциплин
+{% endblock %}
+
+{% block link_css %}
+<link rel="stylesheet" href="{% static 'main/css/main.css' %}" />
+{% endblock %}
+
+{% block body %}
+<section class="content">
+  <div class="container">
+    <h1 class="content-title">Список дисциплин</h1>
+    <ul class="discipline-list">
+      <li><a href="{% url 'test' %}" class="btn">Бухгалтерский учет</a></li>
+    </ul>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2024 Платформа тестов</p>
+  </div>
+</footer>
+{% endblock %}

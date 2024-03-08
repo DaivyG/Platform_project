@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Бухгалтерский учет</title>
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}"/>
+</head>
+<body>
+<h1>Бухгалтерский учет</h1>
+{% for question in questions %}
+<div class="question">
+    <h3>{{ question.text }}</h3>
+    <form
+            class="question-form"
+            action="{% url 'check_answer' %}"
+            method="post"
+    >
+        {% csrf_token %}
+        {% for answer in question.answer_set.all %}
+        <input
+                type="checkbox"
+                name="question_{{ question.id }}"
+                value="{{ answer.id }}"
+                data-correct="{{ answer.is_correct }}"
+        />
+        <label>{{ answer.text }}</label><br/>
+        {% endfor %}
+        <button type="submit">Отправить</button>
+    </form>
+</div>
+{% endfor %}
+<script>
+    document.querySelectorAll(".question-form").forEach(function (form) {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            // Находим все чекбоксы в текущей форме
+            var checkboxes = form.querySelectorAll('input[type="checkbox"]');
+
+            // Перебираем все чекбоксы
+            checkboxes.forEach(function (checkbox) {
+                // Если чекбокс выбран и он правильный, перекрашиваем его в зеленый цвет
+                if (checkbox.checked && checkbox.dataset.correct === "true") {
+                    checkbox.nextElementSibling.style.color = "green"; // Выделение текста зеленым цветом
+                }
+            });
+
+            // Отключаем возможность изменения ответа после выбора
+            checkboxes.forEach(function (checkbox) {
+                checkbox.disabled = true;
+            });
+        });
+    });
+</script>
+</body>
+</html>
