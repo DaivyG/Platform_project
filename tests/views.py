@@ -1,23 +1,10 @@
 from django.shortcuts import render
-from .models import Question, Answer, TestResult
+from .models import Question
 from django.shortcuts import redirect
 
 def test_view(request):
     questions = Question.objects.all()  # Получаем все вопросы
     return render(request, 'tests/discipline_test.html', {'questions': questions})
-
-
-def submit_answer(request):
-    if request.method == 'POST':
-        question_id = request.POST.get('question_id')
-        chosen_answer_id = request.POST.get('chosen_answer_id')
-        question = Question.objects.get(pk=question_id)
-        chosen_answer = Answer.objects.get(pk=chosen_answer_id)
-        is_correct = chosen_answer.is_correct
-        # Сохраняем результат теста
-        TestResult.objects.create(user=request.user, question=question, chosen_answer=chosen_answer, is_correct=is_correct)
-        # Возвращаем результат
-        return render(request, 'tests/submit_answer.html', {'is_correct': is_correct})
 
 
 def check_answer(request):

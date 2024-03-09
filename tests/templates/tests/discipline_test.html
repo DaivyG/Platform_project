@@ -1,58 +1,72 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Бухгалтерский учет</title>
-    <link rel="stylesheet" href="{% static 'tests/css/style.css' %}"/>
-</head>
-<body>
-<h1>Бухгалтерский учет</h1>
-{% for question in questions %}
-<div class="question">
-    <h3>{{ question.text }}</h3>
-    <form
-            class="question-form"
-            action="{% url 'check_answer' %}"
-            method="post"
-    >
-        {% csrf_token %}
-        {% for answer in question.answer_set.all %}
+    <link rel="stylesheet" href="{% static 'tests/css/style.css' %}" />
+  </head>
+  <body>
+    <h1>Бухгалтерский учет</h1>
+    {% for question in questions %}
+    <div class="question">
+      <h3>{{ question.text }}</h3>
+      <form
+        class="question-form"
+        action="{% url 'check_answer' %}"
+        method="post"
+      >
+        {% csrf_token %} {% for answer in question.answer_set.all %}
         <input
-                type="checkbox"
-                name="question_{{ question.id }}"
-                value="{{ answer.id }}"
-                data-correct="{{ answer.is_correct }}"
+          type="checkbox"
+          name="question_{{ question.id }}"
+          id="{{ answer.id }}"
+          data-correct="{{ answer.is_correct }}"
         />
-        <label>{{ answer.text }}</label><br/>
+        <label for="{{ answer.id }}">{{ answer.text }}</label><br />
         {% endfor %}
         <button type="submit">Отправить</button>
-    </form>
-</div>
-{% endfor %}
-<script>
-    document.querySelectorAll(".question-form").forEach(function (form) {
+      </form>
+    </div>
+    {% endfor %}
+    <script>
+      document.querySelectorAll(".question-form").forEach(function (form) {
         form.addEventListener("submit", function (event) {
-            event.preventDefault();
+          event.preventDefault();
 
-            // Находим все чекбоксы в текущей форме
-            var checkboxes = form.querySelectorAll('input[type="checkbox"]');
+          // Находим все чекбоксы в текущей форме
+          var checkboxes = form.querySelectorAll('input[type="checkbox"]');
 
-            // Перебираем все чекбоксы
-            checkboxes.forEach(function (checkbox) {
-                // Если чекбокс выбран и он правильный, перекрашиваем его в зеленый цвет
-                if (checkbox.dataset.correct === 'True') {
-                    checkbox.nextElementSibling.style.color = "green"; // Выделение текста зеленым цветом
-                }
-            });
+          // Переменная для отслеживания выбранных правильных ответов
+          var allCorrect = true;
 
-            // Отключаем возможность изменения ответа после выбора
-            checkboxes.forEach(function (checkbox) {
-                checkbox.disabled = true;
-            });
+          // Перебираем все чекбоксы
+          checkboxes.forEach(function (checkbox) {
+            // Если чекбокс выбран и он правильный, перекрашиваем его в зеленый цвет
+            if (checkbox.dataset.correct === "True") {
+              checkbox.nextElementSibling.style.color = "rgba(0, 255, 0, 1)"; // Выделение текста зеленым цветом
+            }
+
+            // Проверяем, выбраны ли все правильные ответы
+            if (checkbox.checked && checkbox.dataset.correct !== "True") {
+              allCorrect = false;
+            }
+          });
+
+          // Устанавливаем цвет фона в зависимости от выбранных ответов
+          if (allCorrect) {
+            form.style.backgroundColor = "rgba(0, 255, 0, 0.1)"; // Зеленый фон с прозрачностью
+          } else {
+            form.style.backgroundColor = "rgba(255, 0, 0, 0.6)"; // Красный фон с прозрачностью
+          }
+
+          // Отключаем возможность изменения ответа после выбора
+          checkboxes.forEach(function (checkbox) {
+            checkbox.disabled = true;
+          });
         });
-    });
-</script>
-</body>
+      });
+    </script>
+  </body>
 </html>
