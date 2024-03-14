@@ -1,6 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Question
-from django.shortcuts import redirect
 
 def test_view(request):
     questions = Question.objects.all()  # Получаем все вопросы
